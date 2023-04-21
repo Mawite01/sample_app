@@ -39,7 +39,7 @@
 
             <div class="max-w-6xl mx-auto sm:px-6 lg:px-8">
                <h1>Hello Laravel</h1>
-               <a href={{route('blog.index')}} class="btn btns-success" >Blog List</a>
+               {{-- <a href={{route('blog.index')}} class="btn btns-success" >Blog List</a> --}}
 
       
             </div>

@@ -6,6 +6,7 @@ use App\Http\Controllers\AdminController;
 use App\Http\Controllers\BlogController;
 use App\Http\Controllers\BlogsController;
 use App\Models\Blog;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -22,14 +23,12 @@ use Illuminate\Support\Facades\Route;
 Route::get('/', function () {
     return view('welcome');
 });
+Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');    
 
-Route::resource('blogs',BlogsController::class);
-Route::get('blog',[BlogController::class,'index'])->name('blog.index');
-Route::get('blog/create',[BlogController::class,'create'])->name('blog.create');
-Route::post('blog/store',[BlogController::class,'store'])->name('blog.store');
-Route::get('blog/edit/{blog}',[BlogController::class,'edit'])->name('blog.edit');
-Route::post('blog/update/{blog}',[BlogController::class,'update'])->name('blog.update');
-Route::post('blog/delte/{blog}',[BlogController::class,'delete'])->name('blog.delete');
+Route::prefix('admin')->group(function () {
+    Route::resource('blogs',BlogsController::class);
+    Route::get('admin',[AdminController::class,'index'])->name('admin');
+    Route::get('admin/widget',[AdminController::class,'widget'])->name('admin.widget');
+    Auth::routes(['register' => false ]); 
+});
 
-Route::get('admin',[AdminController::class,'index'])->name('admin');
-Route::get('admin/widget',[AdminController::class,'widget'])->name('admin.widget');

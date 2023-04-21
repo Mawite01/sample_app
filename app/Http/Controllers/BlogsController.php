@@ -14,11 +14,17 @@ class BlogsController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
+
+    public function __construct()
+    {
+        $this->middleware('auth');
+    } 
+    
     public function index()
     {
         // $data = Blog::all();
         $data = Blog::all();
-        return view('blog.index',compact('data'));
+        return view('backend.blogs.index',compact('data'));
     }
 
     /**
@@ -29,7 +35,7 @@ class BlogsController extends Controller
     public function create()
     {
          
-        return view('blog.create');
+        return view('backend.blogs.create');
     }
 
     /**
@@ -51,7 +57,7 @@ class BlogsController extends Controller
 
             Blog::create($request->all());
 
-        return redirect()->route('blog.index');
+        return redirect()->route('blogs.index');
     }
 
     /**
@@ -64,7 +70,7 @@ class BlogsController extends Controller
     {
         $result = Blog::where('id',$id)->first();
 
-        return view('blog.show',compact('result'));
+        return view('backend.blogs.show',compact('result'));
     }
 
     /**
@@ -78,7 +84,7 @@ class BlogsController extends Controller
      
      $result = Blog::where('id',$id)->first();
      
-     return view('blog.edit',compact('result'));
+     return view('backend.blogs.edit',compact('result'));
     }
 
     /**
@@ -98,7 +104,7 @@ class BlogsController extends Controller
         // ]);
         $data->update($request->all());
 
-        return redirect()->route('blog.index');
+        return redirect()->route('blogs.index');
         
     }
 
@@ -113,6 +119,6 @@ class BlogsController extends Controller
         $data = Blog::where('id',$id)->first();
         $data->delete();
         
-        return redirect()->route('blog.index');
+        return redirect()->route('blogs.index');
     }
 }

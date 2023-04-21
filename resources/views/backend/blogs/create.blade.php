@@ -25,7 +25,7 @@
             <div class="container">
                 <h3>New Blog</h3>
 
-            <form action="{{route('blog.store')}}" method="post" enctype="multipart/form-data">
+            <form action="{{route('blogs.store')}}" method="post" enctype="multipart/form-data">
 
                  @csrf
                     <div class="mb-3">
