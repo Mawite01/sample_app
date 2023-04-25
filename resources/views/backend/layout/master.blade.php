@@ -144,6 +144,7 @@
         <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="false">
           <!-- Add icons to the links using the .nav-icon class
                with font-awesome or any other icon font library -->
+          @can('dashboard')
           <li class="nav-item menu-open">
             <a href={{route('admin')}} class="nav-link active">
               <i class="nav-icon fas fa-tachometer-alt"></i>
@@ -154,6 +155,8 @@
             </a>
            
           </li>
+          @endcan
+          @can('widget')
           <li class="nav-item">
             <a href={{route('admin.widget')}} class="nav-link">
               <i class="nav-icon fas fa-th"></i>
@@ -163,6 +166,8 @@
               </p>
             </a>
           </li>
+          @endcan
+          @can('blogList')
           <li class="nav-item">
             <a href={{route('blogs.index')}}  class="nav-link">
               <i class="nav-icon fas fa-th"></i>
@@ -171,12 +176,8 @@
                 <span class="right badge badge-danger">New</span>
               </p>
             </a>
-          </li>
-         
-         
-          
-       
-         
+          </li>          
+          @endcan         
         </ul>
       </nav>
       <!-- /.sidebar-menu -->

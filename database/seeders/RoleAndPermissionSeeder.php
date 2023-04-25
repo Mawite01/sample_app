@@ -22,9 +22,14 @@ class RoleAndPermissionSeeder extends Seeder
         $dashboard = Permission::create(['name' => 'dashboard']);
         $widget    = Permission::create(['name' => 'widget']);
         $blog_list = Permission::create(['name' => 'blogList']);
+        $blog_create = Permission::create(['name' => 'blogCreate']);
+        $blog_edit = Permission::create(['name' => 'blogEdit']);
+        $blog_delete = Permission::create(['name' => 'blogDelete']);
+        $blog_show = Permission::create(['name' => 'blogShow']);
         
-        $super_admin->givePermissionTo([$dashboard,$widget,$blog_list]);
-        $editor->givePermissionTo($blog_list);
+        
+        $super_admin->givePermissionTo([$dashboard,$widget,$blog_list,$blog_create,$blog_edit,$blog_delete,$blog_show]);
+        $editor->givePermissionTo($blog_list,$blog_create,$blog_edit,$blog_show);
 
     }
 }

@@ -33,6 +33,8 @@ class AdminSeeder extends Seeder
             'password' => Hash::make('12345678')
         ]);
 
+        // $editor->assignRole($request->role);
+
         $admin->assignRole('SuperAdmin'); 
         $editor->assignRole('Editor');       
 

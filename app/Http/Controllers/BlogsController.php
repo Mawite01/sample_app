@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 // use App\Models\Blog;
 
+use App\Http\Requests\BlogRequest;
 use App\Models\Blog;
 use Illuminate\Http\Request;
 
@@ -17,6 +18,10 @@ class BlogsController extends Controller
 
     public function __construct()
     {
+        $this->middleware('permission:blogList', ['only' => ['index']]);
+        $this->middleware('permission:blogCreate',['only' => ['create','store']]);
+        $this->middleware('permission:blogEdit',['only' => ['edit','update']]);
+        $this->middleware('permission:blogDelete',['only' => ['destroy']]);
         $this->middleware('auth');
     } 
     
@@ -45,17 +50,17 @@ class BlogsController extends Controller
      * @return \Illuminate\Http\Response
      */
     
-    public function store(Request $request)
+    public function store(BlogRequest $request)
     {       
-        
-
-            // Blog::create([
-            //     'name'  => $request->user_name,
-            //     'description' => $request->description
-            // ]);
-            // dd($request->all());
-
-            Blog::create($request->all());
+            $data = $request->validated();
+           if($request->hasFile('image'))
+           {
+            $imageName = time().'.'.$request->image->extension();  
+            $request->image->move(public_path('images'), $imageName);            
+           }
+           $data = array_merge($data,['image' => $imageName]);
+           
+            Blog::create($data);
 
         return redirect()->route('blogs.index');
     }
